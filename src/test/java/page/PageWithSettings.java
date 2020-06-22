@@ -119,7 +119,7 @@ public class PageWithSettings{
     public PageWithSettings checkInputMail(){
         Selenide.switchTo().frame(0);
         Selenide.switchTo().frame("myFrame");
-        $(buttonInputMail).waitUntil(visible, 10000).setValue(Keys.CONTROL + "v");
+        $(buttonInputMail).waitUntil(visible, 10000).setValue(Keys.chord(Keys.CONTROL, "V"));
         return this;
     }
 
