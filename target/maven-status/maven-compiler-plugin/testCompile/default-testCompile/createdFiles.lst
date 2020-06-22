@@ -1,0 +1,10 @@
+page\PageWithSettings.class
+test\TestOpenRightPage.class
+test\CommonConditions.class
+test\PriceComparisonTest.class
+settingscalc\Calculator.class
+services\TestDataReader.class
+page\GenerateMailPage.class
+util\TestListener.class
+services\CalculatorCreator.class
+page\CloudGoogleComPage.class
