@@ -1,6 +1,5 @@
 package page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
@@ -119,7 +118,7 @@ public class PageWithSettings{
     public PageWithSettings checkInputMail(){
         Selenide.switchTo().frame(0);
         Selenide.switchTo().frame("myFrame");
-        $(buttonInputMail).waitUntil(visible, 10000).setValue(Keys.chord(Keys.CONTROL, "V"));
+        $(buttonInputMail).waitUntil(visible, 10000).setValue(GenerateMailPage.generateMail);
         return this;
     }
 

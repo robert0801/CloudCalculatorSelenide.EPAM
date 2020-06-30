@@ -1,5 +1,7 @@
 package page;
 
+import static com.codeborne.selenide.Condition.*;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -15,6 +17,7 @@ public class GenerateMailPage{
 
 
     public static Double priceOnGenerateMailPage;
+    public static String generateMail;
 
     private final Logger logger = LogManager.getRootLogger();
 
@@ -24,7 +27,8 @@ public class GenerateMailPage{
     }
 
     public GenerateMailPage copyMail() {
-        $(By.xpath("//*[@id='copy_address']")).waitUntil(Condition.visible, 10000).click();
+        generateMail = $(By.xpath("//input[@id='mail_address']")).waitUntil(not(attribute("value", "")), 10000)
+                .getAttribute("value");
         Selenide.switchTo().window(PageWithSettings.tab.get(0));
         logger.info("Generate email");
         return this;
@@ -34,22 +38,16 @@ public class GenerateMailPage{
     public GenerateMailPage clickToOpenMail() {
 
         switchTo().window(PageWithSettings.tab.get(1));
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        $(By.xpath("//*[@id='mail_messages_content']")).waitWhile(empty, 20000);
         JavascriptExecutor executor = (JavascriptExecutor) WebDriverRunner.getWebDriver();
         executor.executeScript("arguments[0].scrollIntoView(true);", $(By.xpath("//*[@id='mail_messages_content']")));
-
-
-        $(By.xpath("//*[@id='mail_messages_content']")).waitUntil(Condition.appear, 20000).click();
+        $(By.xpath("//*[@id='mail_messages_content']")).click();
         logger.info("The email was success open");
         return this;
     }
 
     public void getPriceOnGenerateMailPage() {
-        String s = $(By.xpath("//h3[contains(text(), 'USD')]")).waitUntil(Condition.visible, 20000)
+        String s = $(By.xpath("//h3[contains(text(), 'USD')]")).waitUntil(visible, 20000)
                 .getText()
                 .replace("USD ", "")
                 .replaceAll("[^0-9.]","");
